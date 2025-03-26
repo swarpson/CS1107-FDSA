@@ -6,54 +6,53 @@ class Node:
 class SinglyLinkedList:
     def __init__(self):
         self.head = None
-
-    # 1. Append node at the end
-    def append_node(self, data):
+    
+    # Method to append a node to the linked list
+    def append(self, data):
         new_node = Node(data)
-        if not self.head:  # If the list is empty, make new node the head
+        if self.head is None:
             self.head = new_node
         else:
-            last = self.head
-            while last.next:  # Traverse to the last node
-                last = last.next
-            last.next = new_node  # Link the new node at the end
-
-    # 2. Search for a node with a particular value
-    def search_node(self, data):
-        current = self.head
-        while current:
-            if current.data == data:
-                return True  # Data found
-            current = current.next
-        return False  # Data not found
-
-    # 3. Display the list
-    def display_list(self):
-        current = self.head
-        if not current:
+            last_node = self.head
+            while last_node.next:
+                last_node = last_node.next
+            last_node.next = new_node
+    
+    # Method to search for a node by value
+    def search(self, data):
+        current_node = self.head
+        while current_node:
+            if current_node.data == data:
+                return True
+            current_node = current_node.next
+        return False
+    
+    # Method to display the linked list
+    def display(self):
+        if self.head is None:
             print("The list is empty.")
             return
-        while current:
-            print(current.data, end=" -> " if current.next else "")
-            current = current.next
-        print()  # For new line at the end
+        current_node = self.head
+        while current_node:
+            print(current_node.data, end="->")
+            current_node = current_node.next
+        print("None")
 
+# Using Inputs
+sll = SinglyLinkedList()
 
-# Test the operations
+# Append nodes
+sll.append(30)
+sll.append(60)
+sll.append(90)
 
-# Create a linked list
-ll = SinglyLinkedList()
+# Search for a value in the list taking a value from the user
+search_value = int(input("Enter a value to check in the list:"))
+if sll.search(search_value):
+    print(f"Node with value {search_value} found in the list.")
+else:
+    print(f"Node with value {search_value} not found in the list.")
 
-# Append nodes to the list
-ll.append_node(10)
-ll.append_node(20)
-ll.append_node(30)
-
-print("List after appending nodes:")
-ll.display_list()  # Expected output: 10 -> 20 -> 30
-
-# Search for a node with data 20
-print("Search for node with data 20:", "Found" if ll.search_node(20) else "Not Found")  # Expected output: Found
-
-# Search for a node with data 50
-print("Search for node with data 50:", "Found" if ll.search_node(50) else "Not Found")  # Expected output: Not Found
+# Display the list
+print("Linked List:")
+sll.display()
